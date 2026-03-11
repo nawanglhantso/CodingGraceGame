@@ -440,6 +440,36 @@ def green_magic_room(player_info_arg):
         print("The magician waves his hand and you are whisked away...\n")
         return "flee"
 
+def purple_room(player_info_arg):
+    """A mysterious purple light filled with magical energy"""
+    print("\nYou have entered the Purple Room")
+
+    player_info_arg["location"] = "Purple Room"
+
+    damage_or_healing = 10
+    player_info_arg["health"] += damage_or_healing
+
+    item = "Purple Plant"
+
+    if item not in player_info_arg["inventory"]:
+        player_info_arg["inventory"].append(item)
+        print(f"You found a {item}!")
+
+    player_info_arg["choices"].append("Purple Room")
+
+    show_player_info(player_info_arg)
+
+    action = input("Eat the plant or flee > ").strip().lower()
+
+    if action == "eat":
+        print("Magical lights start to swirl around you.")
+        return player_info_arg
+
+    elif "flee" in action:
+        return "flee"
+
+    else:
+        you_died("The plant turned into a poison that kills anyone near it")
 
 # ===========================================================================
 # CONTROL FUNCTIONS
