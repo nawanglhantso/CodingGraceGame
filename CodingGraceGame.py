@@ -483,7 +483,7 @@ def orange_fire_room(player_info_arg):
     return player_info_arg
 
 def black_shadow_room(player_info_arg):
-    """The Black Room: A dark chamber where shadows whisper secrets;only a riddle can save you."""
+    """The Black Room: A dark chamber where shadows whisper secrets; only a riddle can save you."""
 
     print("The room is dimly lit by a flickering candle.")
 
@@ -513,7 +513,7 @@ def black_shadow_room(player_info_arg):
         you_won("You solved the challenge and escaped the Black Room!")
 
     elif action == "wrong":
-        you_died("The shadow close in and the room collapses on you.")
+        you_died("The shadows close in and the room collapses on you.")
 
     elif "flee" in action:
         return "flee"
@@ -521,7 +521,7 @@ def black_shadow_room(player_info_arg):
     return player_info_arg
 
 def purple_healing_room(player_info_arg):
-    """A mysterious purple light filled with magical energy"""
+    """A mysterious purple light filled with magical energy."""
     print("\nYou have entered the Purple Room")
 
     player_info_arg["location"] = "Purple Room"
@@ -603,7 +603,7 @@ def get_player_name(player_info_arg):
 
 
 def start_new_adventure(player_info_arg):
-    """Presents the three-door choice and routes to the selected room.
+    """Presents the six-door choice and routes to the selected room.
 
     A while-loop drives the game flow: each iteration shows the dungeon,
     asks the player to pick a door, and dispatches to the corresponding
@@ -622,10 +622,8 @@ def start_new_adventure(player_info_arg):
 
     while True:
         print_new_dungeon()
-        print("You enter a room, and you see a red door to your left "
-              "and blue and green doors to your right.")
-        door_picked = input("Do you pick the red door, blue door, "
-                            "or green door? > ")
+        print("You see six doors:red,blue,green,orange,black, and purple.")
+        door_picked = input("Which door do you choose > ")
 
         # We compare only the first few characters so that inputs like
         # "red door", "blue", or "green one" all work.
@@ -637,9 +635,16 @@ def start_new_adventure(player_info_arg):
             room_result = blissful_ignorance_of_illusion_room(player_info_arg)
         elif door.startswith("green"):
             room_result = green_magic_room(player_info_arg)
+        elif door.startswith("orange"):
+            room_result = orange_fire_room(player_info_arg)
+        elif door.startswith("black"):
+            room_result = black_shadow_room(player_info_arg)
+        elif door.startswith("purple"):
+            room_result = purple_healing_room(player_info_arg)
+        
+       
         else:
-            print("Sorry, it's either 'red', 'blue', or 'green' as the "
-                  "answer. You're the weakest link, goodbye!")
+            print("Please enter one of the six door names.")
             # Continue the loop so the player can try again.
             continue
 
