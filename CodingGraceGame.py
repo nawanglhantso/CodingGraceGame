@@ -455,9 +455,35 @@ def orange_fire_room(player_info_arg):
     damage_or_healing = -15
     player_info_arg["health"] = max(0, min(200, player_info_arg["health"] + damage_or_healing))
 
+
     item = "Flame Gem"
+    if item not in player_info_arg["inventory"]:
+        player_info_arg["inventory"].append(item)
+        print(f"You found a {item}!")
+
+    player_info_arg["choices"].append("Orange Room")
+        
+     # 4. Display state ── REQUIRED
+    show_player_info(player_info_arg)
+    
+
+    # 5. Room narrative and interaction
+    print("A path of fire blocks the exit.")
+    print("You can 'jump' through the flames, choose 'touch' to reach into them, or 'flee' back to safety.")
+
+    action = input("[jump | touch | flee] > ").strip().lower()
+
+    if action == "jump":
+        you_won("You leap through the flames and discover a hidden treasure")
+    elif action == "touch":
+        you_died("The flames burn you instantly")
+    elif action == "flee":
+        return "flee"
+
+    return player_info_arg
+
 def black_shadow_room(player_info_arg):
-    """The Black Room: A dark chamber where shadows whisper secrets only a riddle can save you."""
+    """The Black Room: A dark chamber where shadows whisper secrets;only a riddle can save you."""
 
     print("The room is dimly lit by a flickering candle.")
 
@@ -466,7 +492,8 @@ def black_shadow_room(player_info_arg):
     player_info_arg["location"] = "Black Room"
 
     damage_or_healing = -10
-    player_info_arg["health"] = max(0,min(200,player_info_arg["health"] + damage_or_healing)
+    
+    player_info_arg["health"] = max(0,min(200,player_info_arg["health"] + damage_or_healing))
 
     item = "Obsidian Key"
 
@@ -489,7 +516,7 @@ def black_shadow_room(player_info_arg):
         you_died("The shadow close in and the room collapses on you.")
 
     elif "flee" in action:
-	      return "flee"
+        return "flee"
 
     return player_info_arg
 
@@ -513,23 +540,6 @@ def purple_healing_room(player_info_arg):
         player_info_arg["inventory"].append(item)
         print(f"You found a {item}!")
 
-    player_info_arg["choices"].append("Orange Room")
-
-    # 4. Display state ── REQUIRED
-    show_player_info(player_info_arg)
-
-    # 5. Room narrative and interaction
-    print("A path of fire blocks the exit.")
-    print("You can 'jump' through the flames, choose 'touch' to reach into them, or 'flee' back to safety.")
-
-    action = input("[jump | touch | flee] > ").strip().lower()
-
-    if action == "jump":
-        you_won("You leap through the flames and discover a hidden treasure")
-    elif action == "touch":
-        you_died("The flames burn you instantly")
-    elif action == "flee":
-        return "flee"
 
     player_info_arg["choices"].append("Purple Room")
 
@@ -543,8 +553,7 @@ def purple_healing_room(player_info_arg):
 
     elif action == "ignore":
         print("You step away from the plant and continue on")
-        return player_info_arg
-    
+       
     elif "flee" in action:
         return "flee"
 
