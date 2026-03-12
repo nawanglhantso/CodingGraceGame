@@ -453,7 +453,7 @@ def orange_fire_room(player_info_arg):
     player_info_arg["location"] = "Orange Room"
 
     damage_or_healing = -15
-    player_info_arg["health"] += damage_or_healing
+    player_info_arg["health"] = max(0, min(200, player_info_arg["health"] + damage_or_healing))
 
     item = "Flame Gem"
     if item not in player_info_arg["inventory"]:
@@ -467,9 +467,9 @@ def orange_fire_room(player_info_arg):
 
     # 5. Room narrative and interaction
     print("A path of fire blocks the exit.")
-    print("You can try to 'jump' through the flames or 'flee' back to safety.")
+    print("You can 'jump' through the flames, choose 'touch' to reach into them, or 'flee' back to safety.")
 
-    action = input("> ").strip().lower()
+    action = input("[jump | touch | flee] > ").strip().lower()
 
     if "jump" in action:
         you_won("You leap through the flames and discover a hidden treasure")
