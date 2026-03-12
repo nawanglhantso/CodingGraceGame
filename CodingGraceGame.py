@@ -440,6 +440,22 @@ def green_magic_room(player_info_arg):
         print("The magician waves his hand and you are whisked away...\n")
         return "flee"
 
+def orange_fire_room(player_info_arg):
+    """A fiery chamber where the player must decide whether to risk the flames."""
+
+    # 1. ASCII art (optional)
+    print_fire()
+
+    # 2. Announce the room
+    print("\nYou have entered the Orange Room.")
+
+    # 3. Update player state ── REQUIRED
+    player_info_arg["location"] = "Orange Room"
+
+    damage_or_healing = -15
+    player_info_arg["health"] = max(0, min(200, player_info_arg["health"] + damage_or_healing))
+
+    item = "Flame Gem"
 def black_shadow_room(player_info_arg):
     """The Black Room: A dark chamber where shadows whisper secrets only a riddle can save you."""
 
@@ -496,6 +512,24 @@ def purple_healing_room(player_info_arg):
     if item not in player_info_arg["inventory"]:
         player_info_arg["inventory"].append(item)
         print(f"You found a {item}!")
+
+    player_info_arg["choices"].append("Orange Room")
+
+    # 4. Display state ── REQUIRED
+    show_player_info(player_info_arg)
+
+    # 5. Room narrative and interaction
+    print("A path of fire blocks the exit.")
+    print("You can 'jump' through the flames, choose 'touch' to reach into them, or 'flee' back to safety.")
+
+    action = input("[jump | touch | flee] > ").strip().lower()
+
+    if action == "jump":
+        you_won("You leap through the flames and discover a hidden treasure")
+    elif action == "touch":
+        you_died("The flames burn you instantly")
+    elif action == "flee":
+        return "flee"
 
     player_info_arg["choices"].append("Purple Room")
 
@@ -640,6 +674,18 @@ def main(player_info_main):
 # Each function below prints a decorative text image to the console.
 # These use raw strings (r"...") so that backslashes are treated literally
 # and we do not need to double-escape them.
+
+def print_fire():
+    print()
+    print(r"              (  .      )")
+    print(r"          )           (              )")
+    print(r"                .  '   .   '  .  '  .")
+    print(r"       (    , )       (.   )  (   ',    )")
+    print(r"        .' ) ( . )    ,  ( ,     )   ( .")
+    print(r"     ). , ( .   (  ) ( , ')  .' (  ,    )")
+    print(r"    (_,) . ), ) _) _,')  (, ) '. )  ,. (' )")
+    print(r"   ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^")
+    print()
 
 def print_monster():
     print()
