@@ -444,7 +444,7 @@ def orange_fire_room(player_info_arg):
     """A fiery chamber where the player must decide whether to risk the flames."""
 
     # 1. ASCII art (optional)
-    print("\nFlames flicker across the walls of the chamber.")
+    print_fire()
 
     # 2. Announce the room
     print("\nYou have entered the Orange Room.")
@@ -471,11 +471,11 @@ def orange_fire_room(player_info_arg):
 
     action = input("[jump | touch | flee] > ").strip().lower()
 
-    if "jump" in action:
+    if action == "jump":
         you_won("You leap through the flames and discover a hidden treasure")
-    elif "touch" in action:
+    elif action == "touch":
         you_died("The flames burn you instantly")
-    elif "flee" in action:
+    elif action == "flee":
         return "flee"
 
     return player_info_arg
@@ -601,6 +601,18 @@ def main(player_info_main):
 # Each function below prints a decorative text image to the console.
 # These use raw strings (r"...") so that backslashes are treated literally
 # and we do not need to double-escape them.
+
+def print_fire():
+    print()
+    print(r"              (  .      )")
+    print(r"          )           (              )")
+    print(r"                .  '   .   '  .  '  .")
+    print(r"       (    , )       (.   )  (   ',    )")
+    print(r"        .' ) ( . )    ,  ( ,     )   ( .")
+    print(r"     ). , ( .   (  ) ( , ')  .' (  ,    )")
+    print(r"    (_,) . ), ) _) _,')  (, ) '. )  ,. (' )")
+    print(r"   ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^")
+    print()
 
 def print_monster():
     print()
