@@ -449,6 +449,11 @@ def purple_healing_room(player_info_arg):
     damage_or_healing = 10
     player_info_arg["health"] += damage_or_healing
 
+    if player_info_arg["health"] > 200:
+        player_info_arg["health"] = 200
+    if player_info_arg["health"] < 0:
+        player_info_arg["health"] = 0
+
     item = "Purple Plant"
 
     if item not in player_info_arg["inventory"]:
@@ -459,17 +464,23 @@ def purple_healing_room(player_info_arg):
 
     show_player_info(player_info_arg)
 
-    action = input("Eat the plant or flee > ").strip().lower()
+    action = input("Eat the plant, ignore it, or flee > ").strip().lower()
 
     if action == "eat":
         print("Magical lights start to swirl around you.")
         you_won("You ate the plant and were able to get magic powers from it")
 
+    elif action == "ignore":
+        print("You step away from the plant and continue on")
+        return player_info_arg
+    
     elif "flee" in action:
         return "flee"
 
     else:
         you_died("A mysterious deadly force kills you")
+
+    return player_info_arg
 
 # ===========================================================================
 # CONTROL FUNCTIONS
