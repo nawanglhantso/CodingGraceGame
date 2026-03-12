@@ -440,7 +440,7 @@ def green_magic_room(player_info_arg):
         print("The magician waves his hand and you are whisked away...\n")
         return "flee"
 
-def purple_room(player_info_arg):
+def purple_healing_room(player_info_arg):
     """A mysterious purple light filled with magical energy"""
     print("\nYou have entered the Purple Room")
 
@@ -463,13 +463,13 @@ def purple_room(player_info_arg):
 
     if action == "eat":
         print("Magical lights start to swirl around you.")
-        return player_info_arg
+        you_won("You ate the plant and were able to get magic powers from it")
 
     elif "flee" in action:
         return "flee"
 
     else:
-        you_died("The plant turned into a poison that kills anyone near it")
+        you_died("A mysterious deadly force kills you")
 
 # ===========================================================================
 # CONTROL FUNCTIONS
