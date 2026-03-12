@@ -440,6 +440,43 @@ def green_magic_room(player_info_arg):
         print("The magician waves his hand and you are whisked away...\n")
         return "flee"
 
+def black_shadow_room(player_info_arg):
+    """The Black Room: A dark chamber where shadows whisper secrets only a riddle can save you."""
+
+    print("The room is dimly lit by a flickering candle.")
+
+    print("\nYou have entered the Black Room.")
+
+    player_info_arg["location"] = "Black Room"
+
+    damage_or_healing = -10
+    player_info_arg["health"] = max(0,min(200,player_info_arg["health"] + damage_or_healing)
+
+    item = "Obsidian Key"
+
+    if item not in player_info_arg["inventory"]:
+          player_info_arg["inventory"].append(item)
+          print(f"You found a {item}!")
+
+    player_info_arg["choices"].append("Black Room")
+
+    show_player_info(player_info_arg)
+
+    print("A dark shadow blocks your path.")
+          
+    action = input("[answer | wrong | flee] > ").strip().lower()
+
+    if action == "answer":
+          you_won("You solved the challenge and escaped the Black Room!")
+
+    elif action == "wrong":
+        you_died("The shadow close in and the room collapses on you.")
+
+    elif "flee" in action:
+	return "flee"
+
+    return player_info_arg
+
 
 # ===========================================================================
 # CONTROL FUNCTIONS
