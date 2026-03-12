@@ -456,6 +456,59 @@ def orange_fire_room(player_info_arg):
     player_info_arg["health"] = max(0, min(200, player_info_arg["health"] + damage_or_healing))
 
     item = "Flame Gem"
+def black_shadow_room(player_info_arg):
+    """The Black Room: A dark chamber where shadows whisper secrets only a riddle can save you."""
+
+    print("The room is dimly lit by a flickering candle.")
+
+    print("\nYou have entered the Black Room.")
+
+    player_info_arg["location"] = "Black Room"
+
+    damage_or_healing = -10
+    player_info_arg["health"] = max(0,min(200,player_info_arg["health"] + damage_or_healing)
+
+    item = "Obsidian Key"
+
+    if item not in player_info_arg["inventory"]:
+          player_info_arg["inventory"].append(item)
+          print(f"You found a {item}!")
+
+    player_info_arg["choices"].append("Black Room")
+
+    show_player_info(player_info_arg)
+
+    print("A dark shadow blocks your path.")
+          
+    action = input("[answer | wrong | flee] > ").strip().lower()
+
+    if action == "answer":
+        you_won("You solved the challenge and escaped the Black Room!")
+
+    elif action == "wrong":
+        you_died("The shadow close in and the room collapses on you.")
+
+    elif "flee" in action:
+	      return "flee"
+
+    return player_info_arg
+
+def purple_healing_room(player_info_arg):
+    """A mysterious purple light filled with magical energy"""
+    print("\nYou have entered the Purple Room")
+
+    player_info_arg["location"] = "Purple Room"
+
+    damage_or_healing = 10
+    player_info_arg["health"] += damage_or_healing
+
+    if player_info_arg["health"] > 200:
+        player_info_arg["health"] = 200
+    if player_info_arg["health"] < 0:
+        player_info_arg["health"] = 0
+
+    item = "Purple Plant"
+
     if item not in player_info_arg["inventory"]:
         player_info_arg["inventory"].append(item)
         print(f"You found a {item}!")
@@ -477,6 +530,26 @@ def orange_fire_room(player_info_arg):
         you_died("The flames burn you instantly")
     elif action == "flee":
         return "flee"
+
+    player_info_arg["choices"].append("Purple Room")
+
+    show_player_info(player_info_arg)
+
+    action = input("Eat the plant, ignore it, or flee > ").strip().lower()
+
+    if action == "eat":
+        print("Magical lights start to swirl around you.")
+        you_won("You ate the plant and were able to get magic powers from it")
+
+    elif action == "ignore":
+        print("You step away from the plant and continue on")
+        return player_info_arg
+    
+    elif "flee" in action:
+        return "flee"
+
+    else:
+        you_died("A mysterious deadly force kills you")
 
     return player_info_arg
 
