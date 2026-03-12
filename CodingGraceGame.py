@@ -440,6 +440,45 @@ def green_magic_room(player_info_arg):
         print("The magician waves his hand and you are whisked away...\n")
         return "flee"
 
+def orange_fire_room(player_info_arg):
+    """A fiery chamber where the player must decide whether to risk the flames."""
+
+    # 1. ASCII art (optional)
+    print("\nFlames flicker across the walls of the chamber.")
+
+    # 2. Announce the room
+    print("\nYou have entered the Orange Room.")
+
+    # 3. Update player state ── REQUIRED
+    player_info_arg["location"] = "Orange Room"
+
+    damage_or_healing = -15
+    player_info_arg["health"] += damage_or_healing
+
+    item = "Flame Gem"
+    if item not in player_info_arg["inventory"]:
+        player_info_arg["inventory"].append(item)
+        print(f"You found a {item}!")
+
+    player_info_arg["choices"].append("Orange Room")
+
+    # 4. Display state ── REQUIRED
+    show_player_info(player_info_arg)
+
+    # 5. Room narrative and interaction
+    print("A path of fire blocks the exit.")
+    print("You can try to 'jump' through the flames or 'flee' back to safety.")
+
+    action = input("> ").strip().lower()
+
+    if "jump" in action:
+        you_won("You leap through the flames and discover a hidden treasure")
+    elif "touch" in action:
+        you_died("The flames burn you instantly")
+    elif "flee" in action:
+        return "flee"
+
+    return player_info_arg
 
 # ===========================================================================
 # CONTROL FUNCTIONS
